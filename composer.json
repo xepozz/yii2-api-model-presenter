@@ -1,33 +1,37 @@
 {
-  "name": "xepozz/yii2-api-model-presenter",
-  "type": "yii2-extension",
-  "description": "The API model presenter.",
-  "keywords": [
-    "yii2",
-    "api",
-    "response",
-    "formatter"
-  ],
-  "license": "BSD-3-Clause",
-  "support": {
-    "issues": "https://github.com/yiisoft/yii2/issues?labels=ext-api-proxy-presenter",
-    "forum": "http://www.yiiframework.com/forum/",
-    "wiki": "http://www.yiiframework.com/wiki/",
-    "source": "https://github.com/yiisoft/yii2"
-  },
-  "authors": [
-    {
-      "name": "Dmitrii Derepko",
-      "email": "xepozz@list.ru"
+    "name": "xepozz/yii2-api-model-presenter",
+    "type": "yii2-extension",
+    "description": "The API model presenter.",
+    "keywords": [
+        "yii2",
+        "api",
+        "model",
+        "response",
+        "presenter",
+        "serializer",
+        "converter",
+        "formatter"
+    ],
+    "authors": [
+        {
+            "name": "Dmitrii Derepko",
+            "email": "xepozz@list.ru"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Xepozz\\Yii2ApiModelPresenter\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Xepozz\\Yii2ApiModelPresenter\\Tests": "tests"
+        }
     }
-  ],
-  "require": {
-    "yiisoft/yii2": "~2.0.0"
-  },
-  "repositories": [
-    {
-      "type": "composer",
-      "url": "https://asset-packagist.org"
-    }
-  ]
 }
