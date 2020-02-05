@@ -47,10 +47,10 @@ class ProxyCollection implements Arrayable
         );
     }
 
-    private function ensurePresentersAreArrayble($presenters)
+    private function ensurePresentersAreArrayble(array $presenters): void
     {
         foreach ($presenters as $presenter) {
-            if ($presenter instanceof Arrayable) {
+            if (!$presenter instanceof Arrayable) {
                 throw new InvalidArgumentException(
                     sprintf(
                         'Ожидался %s, получен %s',
