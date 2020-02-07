@@ -34,5 +34,17 @@
         "psr-4": {
             "Xepozz\\Yii2ApiModelPresenter\\Tests\\": "tests"
         }
-    }
+    },
+    "config": {
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
+    },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ]
 }
