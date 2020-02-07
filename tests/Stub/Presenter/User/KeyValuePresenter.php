@@ -6,7 +6,7 @@ use Xepozz\Yii2ApiModelPresenter\ProxyPresenter;
 
 class KeyValuePresenter extends ProxyPresenter
 {
-    protected function getFields(): array
+    protected function getFields()
     {
         return [
             // int

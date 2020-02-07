@@ -9,7 +9,7 @@ use Xepozz\Yii2ApiModelPresenter\ProxyPresenter;
  */
 class CallableValuePresenter extends ProxyPresenter
 {
-    protected function getFields(): array
+    protected function getFields()
     {
         return [
             // int
