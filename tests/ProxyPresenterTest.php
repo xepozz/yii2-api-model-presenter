@@ -17,7 +17,18 @@ class ProxyPresenterTest extends TestCase
      * @param ProxyPresenter $presenter
      * @param array $expectedFields
      */
-    public function testEmptyFields($presenter, $expectedFields)
+    public function testEmptyFields()
+    {
+        $presenter = new EmptyPresenter(new User());
+        $this->assertEquals([], $presenter->toArray());
+    }
+
+    /**
+     * @dataProvider getSimplePresenters
+     * @param ProxyPresenter $presenter
+     * @param array $expectedFields
+     */
+    public function testFields($presenter, $expectedFields)
     {
         $this->assertEquals($expectedFields, $presenter->toArray());
     }
@@ -34,7 +45,6 @@ class ProxyPresenterTest extends TestCase
         $model = new User($data);
 
         return [
-            [new EmptyPresenter($model), []],
             [
                 new SimpleValuePresenter($model),
                 $data,
