@@ -31,7 +31,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Xepozz\\Yii2ApiModelPresenter\\Tests": "tests"
+            "Xepozz\\Yii2ApiModelPresenter\\Tests\\": "tests"
         }
     }
 }
