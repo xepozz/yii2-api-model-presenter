@@ -12,11 +12,6 @@ use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\SimpleValuePresenter;
 
 class ProxyPresenterTest extends TestCase
 {
-    /**
-     * @dataProvider getSimplePresenters
-     * @param ProxyPresenter $presenter
-     * @param array $expectedFields
-     */
     public function testEmptyFields()
     {
         $presenter = new EmptyPresenter(new User());
@@ -28,16 +23,29 @@ class ProxyPresenterTest extends TestCase
      * @param ProxyPresenter $presenter
      * @param array $expectedFields
      */
-    public function testFields($presenter, $expectedFields)
+    public function testFieldsConfigurations($presenter, $expectedFields)
     {
         $this->assertEquals($expectedFields, $presenter->toArray());
+    }
+
+    /**
+     * @dataProvider getPresentersWithSpecificFields
+     * @param ProxyPresenter $presenter
+     * @param callable $expectedFieldsCallback
+     */
+    public function testSpecificFields($presenter, $expectedFieldsCallback)
+    {
+        $fields = ['id'];
+        $expand = [];
+        $expectedFields = $expectedFieldsCallback($fields, $expand);
+        $this->assertEquals($expectedFields, $presenter->toArray($fields));
     }
 
     public function getSimplePresenters()
     {
         $data = [
             'id' => $id = 1,
-            'name' => $name = 'Dmitriy',
+            'name' => $name = 'Dmitrii',
             'roles' => $roles = ['guest', 15, true],
             'is_deleted' => $isDeleted = false,
             'is_online' => $isOnline = true,
@@ -56,6 +64,37 @@ class ProxyPresenterTest extends TestCase
             [
                 new CallableValuePresenter($model),
                 $data,
+            ],
+        ];
+    }
+
+    public function getPresentersWithSpecificFields()
+    {
+        $data = [
+            'id' => $id = 1,
+            'name' => $name = 'Dmitrii',
+            'roles' => $roles = ['guest', 15, true],
+            'is_deleted' => $isDeleted = false,
+            'is_online' => $isOnline = true,
+        ];
+        $model = new User($data);
+
+        $callback = static function ($fields) use ($data) {
+            return array_intersect_key($data, array_flip($fields));
+        };
+
+        return [
+            [
+                new SimpleValuePresenter($model),
+                $callback,
+            ],
+            [
+                new KeyValuePresenter($model),
+                $callback,
+            ],
+            [
+                new CallableValuePresenter($model),
+                $callback,
             ],
         ];
     }
