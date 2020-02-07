@@ -5,9 +5,10 @@ namespace Xepozz\Yii2ApiModelPresenter\Tests;
 use PHPUnit\Framework\TestCase;
 use Xepozz\Yii2ApiModelPresenter\ProxyPresenter;
 use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Model\User;
+use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\CallableValuePresenter;
 use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\EmptyPresenter;
 use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\KeyValuePresenter;
-use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\ValuePresenter;
+use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\SimpleValuePresenter;
 
 class ProxyPresenterTest extends TestCase
 {
@@ -23,37 +24,28 @@ class ProxyPresenterTest extends TestCase
 
     public function getSimplePresenters()
     {
-        $model = new User(
-            [
-                'id' => $id = 1,
-                'name' => $name = 'Dmitriy',
-                'roles' => $roles = ['guest', 15, true],
-                'is_deleted' => $isDeleted = false,
-                'is_online' => $isOnline = true,
-            ]
-        );
+        $data = [
+            'id' => $id = 1,
+            'name' => $name = 'Dmitriy',
+            'roles' => $roles = ['guest', 15, true],
+            'is_deleted' => $isDeleted = false,
+            'is_online' => $isOnline = true,
+        ];
+        $model = new User($data);
 
         return [
             [new EmptyPresenter($model), []],
             [
-                new ValuePresenter($model),
-                [
-                    'id' => $id,
-                    'name' => $name,
-                    'roles' => $roles,
-                    'is_deleted' => $isDeleted,
-                    'is_online' => $isOnline,
-                ],
+                new SimpleValuePresenter($model),
+                $data,
             ],
             [
                 new KeyValuePresenter($model),
-                [
-                    'id' => $id,
-                    'name' => $name,
-                    'roles' => $roles,
-                    'is_deleted' => $isDeleted,
-                    'is_online' => $isOnline,
-                ],
+                $data,
+            ],
+            [
+                new CallableValuePresenter($model),
+                $data,
             ],
         ];
     }

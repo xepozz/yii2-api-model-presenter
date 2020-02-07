@@ -4,7 +4,7 @@ namespace Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User;
 
 use Xepozz\Yii2ApiModelPresenter\ProxyPresenter;
 
-class ValuePresenter extends ProxyPresenter
+class SimpleValuePresenter extends ProxyPresenter
 {
     protected function getFields(): array
     {
