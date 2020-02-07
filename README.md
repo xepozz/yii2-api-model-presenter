@@ -1,5 +1,7 @@
 # Yii2 Api Model Presenter
 
+[![Build Status](https://travis-ci.com/xepozz/yii2-api-model-presenter.svg?branch=master)](https://travis-ci.com/xepozz/yii2-api-model-presenter)
+
 ## Установка
 
 ```
