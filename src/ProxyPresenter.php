@@ -32,7 +32,7 @@ abstract class ProxyPresenter implements Arrayable
      * @param \yii\db\ActiveRecord[] $records
      * @return static[]
      */
-    public static function createMultiple(array $records): array
+    public static function createMultiple(array $records)
     {
         return array_map(
             static function ($record) {
@@ -48,7 +48,7 @@ abstract class ProxyPresenter implements Arrayable
      * @param \yii\base\Arrayable[] $records
      * @return \Xepozz\Yii2ApiModelPresenter\ProxyCollection
      */
-    public static function createCollection(array $records): ProxyCollection
+    public static function createCollection(array $records)
     {
         return new ProxyCollection($records);
     }
@@ -58,7 +58,7 @@ abstract class ProxyPresenter implements Arrayable
      *
      * @return mixed
      */
-    abstract protected function getFields(): array;
+    abstract protected function getFields();
 
     /**
      * Данный метод используется для проксирования.
@@ -67,7 +67,7 @@ abstract class ProxyPresenter implements Arrayable
      * @return array
      * @see getFields()
      */
-    final public function fields(): array
+    final public function fields()
     {
         $fields = $this->getFields();
 
@@ -77,7 +77,7 @@ abstract class ProxyPresenter implements Arrayable
     /**
      * @return array
      */
-    protected function getExtraFields(): array
+    protected function getExtraFields()
     {
         return [];
     }
@@ -97,7 +97,7 @@ abstract class ProxyPresenter implements Arrayable
      *     ];
      * ```
      */
-    protected function getIgnoredFields(): array
+    protected function getIgnoredFields()
     {
         return [];
     }
@@ -109,7 +109,7 @@ abstract class ProxyPresenter implements Arrayable
      * @return array
      * @see getExtraFields()
      */
-    final public function extraFields(): array
+    final public function extraFields()
     {
         $fields = $this->getExtraFields();
 
@@ -125,7 +125,7 @@ abstract class ProxyPresenter implements Arrayable
      * @param \yii\db\ActiveRecord $proxyRecord
      * @return array
      */
-    private function proxyFields($fields, ActiveRecord $proxyRecord): array
+    private function proxyFields($fields, ActiveRecord $proxyRecord)
     {
         $presentedFields = [];
         $childDefinitions = $this->setUpChildDefinitions();
@@ -194,7 +194,7 @@ abstract class ProxyPresenter implements Arrayable
      *
      * @return array
      */
-    protected function setUpChildDefinitions(): array
+    protected function setUpChildDefinitions()
     {
         return [];
     }
@@ -210,7 +210,7 @@ abstract class ProxyPresenter implements Arrayable
      * @param array $childDefinitions
      * @return \Closure|string
      */
-    private function resolveField(ActiveRecord $proxyRecord, string $field, array $childDefinitions)
+    private function resolveField(ActiveRecord $proxyRecord, $field, array $childDefinitions)
     {
         return static function () use ($proxyRecord, $field, $childDefinitions) {
             $populatedRelation = $proxyRecord->$field;
