@@ -3,6 +3,7 @@
 namespace Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User;
 
 use Xepozz\Yii2ApiModelPresenter\ProxyPresenter;
+use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Model\User;
 
 class KeyValuePresenter extends ProxyPresenter
 {
@@ -20,5 +21,10 @@ class KeyValuePresenter extends ProxyPresenter
             // true
             'is_online' => 'is_online',
         ];
+    }
+
+    public static function getModelClass()
+    {
+        return User::className();
     }
 }

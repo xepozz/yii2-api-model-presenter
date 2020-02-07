@@ -4,6 +4,7 @@ namespace Xepozz\Yii2ApiModelPresenter\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Xepozz\Yii2ApiModelPresenter\ProxyPresenter;
+use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Model\Post;
 use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Model\User;
 use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\CallableValuePresenter;
 use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\EmptyPresenter;
@@ -39,6 +40,27 @@ class ProxyPresenterTest extends TestCase
         $expand = [];
         $expectedFields = $expectedFieldsCallback($fields, $expand);
         $this->assertEquals($expectedFields, $presenter->toArray($fields));
+    }
+
+    public function testCreateMultiple()
+    {
+        $presenters = SimpleValuePresenter::createMultiple([new User(), new User()]);
+        $this->assertContainsOnlyInstancesOf(
+            'Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User\SimpleValuePresenter',
+            $presenters
+        );
+    }
+
+    public function testCreateMultipleWrongInstance()
+    {
+        $this->expectException('\InvalidArgumentException');
+        SimpleValuePresenter::createMultiple([new User(), new Post()]);
+    }
+
+    public function testCreateMultipleEmpty()
+    {
+        $presenters = SimpleValuePresenter::createMultiple([]);
+        $this->assertEquals([], $presenters);
     }
 
     public function getSimplePresenters()

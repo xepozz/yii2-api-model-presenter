@@ -26,6 +26,8 @@ abstract class ProxyPresenter implements Arrayable
         $this->record = $record;
     }
 
+    abstract public static function getModelClass();
+
     /**
      * Позволяет быстро создать массив из прокси-объектов
      *
@@ -34,6 +36,8 @@ abstract class ProxyPresenter implements Arrayable
      */
     public static function createMultiple(array $records)
     {
+        self::checkInstances($records);
+
         return array_map(
             static function ($record) {
                 return new static($record);
@@ -50,6 +54,8 @@ abstract class ProxyPresenter implements Arrayable
      */
     public static function createCollection(array $records)
     {
+        self::checkInstances($records);
+
         return new ProxyCollection($records);
     }
 
@@ -236,5 +242,24 @@ abstract class ProxyPresenter implements Arrayable
 
             return $populatedRelation;
         };
+    }
+
+    /**
+     * @param array $records
+     */
+    private static function checkInstances(array $records)
+    {
+        $class = static::getModelClass();
+        foreach ($records as $record) {
+            if (!$record instanceof $class) {
+                throw new \InvalidArgumentException(
+                    sprintf(
+                        'Ожидался класс типа %s, получен %s',
+                        $class,
+                        get_class($record)
+                    )
+                );
+            }
+        }
     }
 }

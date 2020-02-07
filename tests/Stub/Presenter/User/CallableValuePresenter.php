@@ -3,6 +3,7 @@
 namespace Xepozz\Yii2ApiModelPresenter\Tests\Stub\Presenter\User;
 
 use Xepozz\Yii2ApiModelPresenter\ProxyPresenter;
+use Xepozz\Yii2ApiModelPresenter\Tests\Stub\Model\User;
 
 /**
  * @property \Xepozz\Yii2ApiModelPresenter\Tests\Stub\Model\User $record
@@ -33,5 +34,10 @@ class CallableValuePresenter extends ProxyPresenter
                 return $this->record->is_online;
             },
         ];
+    }
+
+    public static function getModelClass()
+    {
+        return User::className();
     }
 }
